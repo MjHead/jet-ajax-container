@@ -66,7 +66,7 @@ class Jet_Ajax_Container {
 
 		$element_id = $_GET['jet_ajax_load_container'];
 		$post_id    = absint( $_GET['jet_ajax_document'] );
-		$container  = $this->get_filtered_widget( $post_id, $element_id );
+		$container  = $this->find_widget_in_document( $post_id, $element_id );
 
 		if ( $container ) {
 			ob_start();
@@ -215,10 +215,11 @@ class Jet_Ajax_Container {
 	 * @param  string $widget_id widget/element ID to find
 	 * @return element instance or false
 	 */
-	public function get_filtered_widget( $post_id, $widget_id ) {
+	public function find_widget_in_document( $post_id, $widget_id ) {
 
-		$elementor = \Elementor\Plugin::instance();
-		$document = $elementor->documents->get( $post_id );
+		$elementor       = \Elementor\Plugin::instance();
+		$document        = $elementor->documents->get( $post_id );
+		$widget_instance = false;
 
 		if ( $document ) {
 
