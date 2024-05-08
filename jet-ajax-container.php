@@ -69,6 +69,10 @@ class Jet_Ajax_Container {
 		$container  = $this->find_widget_in_document( $post_id, $element_id );
 
 		if ( $container ) {
+
+			// Tell the world we doing AJAX request but in a bit unusual way
+			add_filter( 'wp_doing_ajax', '__return_true' );
+
 			ob_start();
 			$container->print_element();
 			$content = ob_get_clean();
